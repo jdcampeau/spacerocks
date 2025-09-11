@@ -29,6 +29,10 @@ def main():
         updateable.update(dt)
         for asteroid in asteroids:
             asteroid.check_for_collisions(player)
+            for shot in shots:
+                if shot.position.distance_to(asteroid.position) <= shot.radius + asteroid.radius:
+                    shot.kill()
+                    asteroid.split()
         pygame.display.flip()
         newdt = clock.tick(60)
         dt = newdt / 1000
